@@ -27,6 +27,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Check AWS_REGION secret
+        run: |
+          if [ "${{ secrets.AWS_REGION != '' }}" = "true" ]; then
+            echo "AWS_REGION is set"
+          else
+            echo "AWS_REGION is NOT set"
+          fi
+
+      - name: Check AWS_ACCOUNT_ID secret
+        run: echo "AWS_ACCOUNT_ID present: ${{ secrets.AWS_ACCOUNT_ID != '' }}"
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
