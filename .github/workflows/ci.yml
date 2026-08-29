@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: ${{ secrets.AWS_REGION }}
+  AWS_REGION: us-east-1
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
         run: |
@@ -57,7 +57,7 @@ jobs:
 
       - name: Push Docker Image
         run: |
-          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ matrix.service }}:${{ github.sha }}
+          IMAGE_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ matrix.service }}:${{ github.sha }}
           echo "Pushing $IMAGE_URI"
           docker push $IMAGE_URI
 
@@ -77,7 +77,7 @@ jobs:
         run: |
           NEW_TAG=${{ github.sha }}
           ACCOUNT=${{ secrets.AWS_ACCOUNT_ID }}
-          REGION=${{ secrets.AWS_REGION }}
+          REGION=${{ env.AWS_REGION }}
 
           for SERVICE in auth gateway orders order-service product-service user-service ai-agent; do
             MANIFEST="gitops/k8s/backend/${SERVICE}.yml"
