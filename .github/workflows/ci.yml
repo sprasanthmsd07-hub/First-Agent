@@ -20,6 +20,7 @@ jobs:
           - order-service
           - product-service
           - user-service
+          - ai-agent
           - frontend
 
     steps:
@@ -78,7 +79,7 @@ jobs:
           ACCOUNT=${{ secrets.AWS_ACCOUNT_ID }}
           REGION=${{ secrets.AWS_REGION }}
 
-          for SERVICE in auth gateway orders order-service product-service user-service; do
+          for SERVICE in auth gateway orders order-service product-service user-service ai-agent; do
             MANIFEST="gitops/k8s/backend/${SERVICE}.yml"
             sed -i "s|${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/${SERVICE}:.*|${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/${SERVICE}:${NEW_TAG}|g" $MANIFEST
           done
