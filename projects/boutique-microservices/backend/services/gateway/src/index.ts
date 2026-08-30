@@ -22,6 +22,7 @@ const services = {
   products: process.env.PRODUCTS_SERVICE_URL || 'http://localhost:3003',
   orders: process.env.ORDERS_SERVICE_URL || 'http://localhost:3004',
   users: process.env.USERS_SERVICE_URL || 'http://localhost:3005',
+  aiAgent: process.env.AI_AGENT_SERVICE_URL || 'http://ai-agent:3008',
 };
 
 app.use('/api/auth', createProxyMiddleware({
@@ -46,6 +47,12 @@ app.use('/api/users', createProxyMiddleware({
   target: services.users,
   changeOrigin: true,
   pathRewrite: { '^/api/users': '' },
+}));
+
+app.use('/api/chat', createProxyMiddleware({
+  target: services.aiAgent,
+  changeOrigin: true,
+  pathRewrite: { '^/api/chat': '/chat' },
 }));
 
 app.use((req, res) => {
