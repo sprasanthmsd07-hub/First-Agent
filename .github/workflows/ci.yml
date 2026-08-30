@@ -1,6 +1,9 @@
 name: Boutique CI Pipeline
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 env:
@@ -44,6 +47,8 @@ jobs:
         run: |
           if [ "${{ matrix.service }}" == "frontend" ]; then
             BUILD_PATH="projects/boutique-microservices/frontend"
+          elif [ "${{ matrix.service }}" == "ai-agent" ]; then
+            BUILD_PATH="projects/boutique-microservices/backend/services/ai-agent"
           else
             BUILD_PATH="projects/boutique-microservices/backend/services/${{ matrix.service }}"
           fi
