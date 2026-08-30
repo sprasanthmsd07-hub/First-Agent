@@ -30,7 +30,7 @@ spec:
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: boutique-secrets
+                  name: openai-key
                   key: OPENAI_API_KEY
 
 ---
