@@ -20,7 +20,7 @@ spec:
             - containerPort: 3000
           env:
             - name: REACT_APP_API_URL
-              value: "http://gateway:3001/api"
+              value: "/api"
 ---
 apiVersion: v1
 kind: Service
@@ -34,5 +34,5 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-  type: ClusterIP
+  type: LoadBalancer
 
