@@ -79,3 +79,27 @@ export interface RegisterCredentials {
   firstName: string;
   lastName: string;
 }
+
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface ChatProduct {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  category?: string;
+  brand?: string;
+  imageUrl?: string;
+}
+
+export interface ChatResponse {
+  success: boolean;
+  data?: {
+    reply: string;
+    products: ChatProduct[];
+  };
+  error?: string;
+}

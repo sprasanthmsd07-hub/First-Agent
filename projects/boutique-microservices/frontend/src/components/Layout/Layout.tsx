@@ -23,6 +23,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
 import { useState } from 'react';
+import ChatWidget from '../Chat/ChatWidget';
 
 const drawerWidth = 240;
 
@@ -154,6 +155,7 @@ const Layout: React.FC = () => {
       >
         <Toolbar />
         <Outlet />
+        <ChatWidget />
       </Box>
     </Box>
   );
